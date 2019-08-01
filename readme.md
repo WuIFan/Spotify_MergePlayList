@@ -15,10 +15,12 @@ config.cfg is like this:
 
 ## How to use  
 
+```console  
 python3 main.py YOURACCOUNT YOURTARGETLIST PLAYLIST1 PLAYLIST2  
+```
 
-:::info
 you may need to install some library  
-pip3 install spotipy  
-:::
 
+```console
+pip3 install spotipy  
+```
