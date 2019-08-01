@@ -15,7 +15,7 @@ class MergePlayList():
             self.playlist1 = sys.argv[3]
             self.playlist2 = sys.argv[4]
         else:
-            print ("Usage: %s username targetplaylist playlist1 playlist2" % (sys.argv[0],))
+            print ("Usage: %s username targetplaylist playlist1 playlist2" % (sys.argv[0]))
             sys.exit()
 
         token = util.prompt_for_user_token(self.username,scope,
