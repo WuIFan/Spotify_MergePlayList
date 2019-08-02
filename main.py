@@ -7,25 +7,16 @@ from configparser import ConfigParser
 
 class MergePlayList():
 
-    def __init__(self, user_id, user_secret):
-        scope = 'user-library-read playlist-modify-public'
-        if len(sys.argv) > 4:
-            self.username = sys.argv[1]
-            self.target = sys.argv[2]
-            self.playlist1 = sys.argv[3]
-            self.playlist2 = sys.argv[4]
+    def __init__(self, user_name, sp):
+        self.username = user_name
+        self.sp = sp
+        if len(sys.argv) > 3:
+            self.target = sys.argv[1]
+            self.playlist1 = sys.argv[2]
+            self.playlist2 = sys.argv[3]
         else:
-            print ("Usage: %s username targetplaylist playlist1 playlist2" % (sys.argv[0]))
+            print ("Usage: %s targetplaylist playlist1 playlist2" % (sys.argv[0]))
             sys.exit()
-
-        token = util.prompt_for_user_token(self.username,scope,
-            client_id=user_id,
-            client_secret=user_secret,
-            redirect_uri='http://localhost:8888/callback')
-        if token:
-            self.sp = spotipy.Spotify(auth=token)
-        else:
-            print ("Can't get token for", self.username)
 
     def getTracks(self,playlistId):
         results = self.sp.user_playlist_tracks(self.username , playlistId)
@@ -66,8 +57,24 @@ class MergePlayList():
         print ("Total tracks : ",len(sorted_track))
         self.addTracks(sorted_track)
 
+def getToken(user_name, user_id, user_secret):
+    scope = 'user-library-read playlist-modify-public'
+    token = util.prompt_for_user_token(user_name,scope,
+        client_id = user_id,
+        client_secret = user_secret,
+        redirect_uri = 'http://localhost:8888/callback')
+    if token:
+        sp = spotipy.Spotify(auth=token)
+        return sp
+    else:
+        print ("Can't get token for", user_name)
+        return NULL
+
 if __name__ == "__main__":
     cfg = ConfigParser()
     cfg.read('config.cfg')
-    mp = MergePlayList(cfg['user']['user_id'],cfg['user']['user_secret'])
+    sp = getToken(cfg['user']['user_name'],cfg['user']['user_id'],cfg['user']['user_secret'])
+    if not sp:
+        sys.exit()
+    mp = MergePlayList(cfg['user']['user_name'], sp)
     mp.merge()
