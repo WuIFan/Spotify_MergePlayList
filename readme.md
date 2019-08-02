@@ -14,7 +14,7 @@ Due to the Spotify app can only copy playlists to a new playlist one by one, and
 4. Click Edit setting and add <http://localhost:8888/callback> in Redirect URIs
 5. Save
 6. And put config.cfg file in the same directory with main.py  
-config.cfg is like this:  
+config.cfg is like [this](./config_demo.cfg):  
 
 ```cfg
 [user]
