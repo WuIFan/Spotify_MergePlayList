@@ -40,14 +40,23 @@ class MergePlayList():
 
     def merge(self):
         results = self.sp.current_user_playlists()
+        playlist1_id = ''
+        playlist2_id = ''
         for item in results['items']:
             if (item['name'] == self.playlist1):
                 playlist1_id = item['id']
             if (item['name'] == self.playlist2):
                 playlist2_id = item['id']
-
-        tracks = self.getTracks(playlist1_id)
-        tracks.extend(self.getTracks(playlist2_id))
+        try:
+            tracks = self.getTracks(playlist1_id)
+            tracks.extend(self.getTracks(playlist2_id))
+        except:
+            if not playlist1_id:
+                print('The playlist:', self.playlist1, 'not found')
+            if not playlist2_id:
+                print('The playlist:', self.playlist2, 'not found')
+            print('Check yout playlist name, and make sure is set to public')
+            sys.exit()
 
         track_dist = {}
         for track in tracks:
