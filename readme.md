@@ -32,7 +32,7 @@ config.cfg is like [this](./config_demo.cfg):
 pip install spotipy  
 ```
 
-3. start  
+3. start (Make sure your playlist is public)
    
 ```console  
 python main.py YOURTARGETLIST PLAYLIST1 PLAYLIST2  
