@@ -35,7 +35,7 @@ pip install spotipy
 3. start (Make sure your playlist is public)
    
 ```console  
-python main.py YOURTARGETLIST PLAYLIST1 PLAYLIST2  
+python main.py YOURTARGETLIST_NAME PLAYLIST1_NAME PLAYLIST2_NAME  
 ```
 
 4. After authentication your web browser will redirected to a url.  Paste that url you were directed to to complete the authorization.  
